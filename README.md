@@ -1,5 +1,10 @@
 # I DON'T KNOW WHAT I'M DOING
 
+## Language Goals
+
+- Fun
+- No Profit
+
 ## Syntax
 
 ```typescript
