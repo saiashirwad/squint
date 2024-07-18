@@ -77,16 +77,16 @@
     with {
       Functor: {
             map: (ma, f) => match ma {
-                    Just: (a) => Just (f a),
-                    Nothing: () => Nothing
-                }
+                Just: (a) => Just (f a),
+                Nothing: () => Nothing
+            }
         },
         Monad: {
             pure: (a) => Just a,
             bind: (ma , f) => match ma {
-                    Just: (a) => f a,
-                    Nothing: () => Nothing
-                }
+                Just: (a) => f a,
+                Nothing: () => Nothing
+            }
         }
     }
 
