@@ -17,6 +17,13 @@
     names = ["Bob", "Alice", "Ted"]
     ```
 
+- Functions
+
+    ```typescript
+    add = a b => a + b
+    add = (a: Number) (b: Number) : Number => a + b
+    ```
+
 - Types
 
     ```typescript
@@ -33,15 +40,25 @@
         | Rectangle { width: Number, height: Number}
         | Point // shorthand for Point Point
 
-    type Node T = {
+    type Node = T => {
         value: T,
         left: Tree T,
         right: Tree T
     }
 
-    type Name (T: String) = T
+    type Name = (T: String) => T
 
-    type Tree (T: Any) = Empty | Node Node T
+    type Tree = T => Empty | Node T
+    ```
+
+- Pattern Matching
+
+    ```typescript
+    result = match shape {
+        Circle: (radius) => radius * radius * 3.14,
+        Rectangle: ({width, height}) => width * height,
+        _ => 0
+    }
     ```
 
 - Typeclasses
@@ -58,12 +75,18 @@
 
     type Maybe A = Just A | Nothing
     with {
-        Functor: {
-            map: (Maybe A, A => B) => Maybe B
+      Functor: {
+            map: (ma, f) => match ma {
+                    Just: (a) => Just (f a),
+                    Nothing: () => Nothing
+                }
         },
         Monad: {
-            pure: A => Maybe A,
-            bind: (Maybe A, A => Maybe B) => Maybe B
+            pure: (a) => Just a,
+            bind: (ma , f) => match ma {
+                    Just: (a) => f a,
+                    Nothing: () => Nothing
+                }
         }
     }
 
