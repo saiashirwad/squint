@@ -2,8 +2,6 @@
 
 ## Syntax
 
-### Basic
-
 ```typescript
 name = "Hi"
 ha = 234
@@ -11,8 +9,6 @@ something = true
 
 names = ["Bob", "Alice", "Ted"]
 ```
-
-### Types
 
 ```typescript
 type Person = {
@@ -38,8 +34,6 @@ type Name (T: String) = T
 
 type Tree (T: Any) = Empty | Node Node T
 ```
-
-### Typeclasses
 
 ```typescript
 typeclass Functor F = {
