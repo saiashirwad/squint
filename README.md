@@ -1,5 +1,6 @@
 # I DON'T KNOW WHAT I'M DOING
 
+
 ## Language Goals
 
 - Fun
@@ -18,12 +19,47 @@
     let names = ["Bob", "Alice", "Ted"]
     ```
 
+- Tuples
+
+    ```typescript
+    let point = <2, 5>
+    ```
+
 - Functions
 
     ```typescript
     let add = (a, b) => a + b
     let add = (a: Number, b: Number) : Number => a + b
     ```
+
+- "special" "things"
+
+    "things" are ... _things_ that do **things** to all kinds of __things__
+
+    ```typescript
+    type Person = {
+        name: String
+        age: Number
+    }
+    let person = {
+        name: "Tex"
+        age: 23
+    }
+
+    let person_ = #omit(person, ["name"])
+    type Person_ = #omit(Person, ["name"])
+
+    thing #pickFirst = () => 
+    ```
+
+    - built-in "things"
+        - #omit
+        - #pick
+
+- Imperative Blocks
+
+   ```typescript
+   ```
 
 - Types
 
@@ -34,9 +70,14 @@
         email: String
     }
 
-    type Point = { x: Number, y: Number}
+    type PersonWithRole = Person & {
+        role: String
+    }
 
-    let rect = <width, height>
+    type PersonWithRoleWithoutRole = Omit(PersonWithRole, "role")
+
+    type Point = { x: Number, y: Number}
+    type Point = <Number, Number>
 
     type Shape = 
         | Circle Number
@@ -125,3 +166,6 @@
 
     type SomeString = String with { @deriving Functor, @deriving Monad }
     ```
+
+## References
+- https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions#creating-a-new-type-of-computation-expression
