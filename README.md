@@ -20,8 +20,8 @@
 - Functions
 
     ```typescript
-    add = a b => a + b
-    add = (a: Number) (b: Number) : Number => a + b
+    add = (a, b) => a + b
+    add = (a: Number, b: Number) : Number => a + b
     ```
 
 - Types
@@ -48,7 +48,7 @@
 
     type Name = (T: String) => T
 
-    type Tree = T => Empty | Node T
+    type Tree = (T) => Empty | Node T
     ```
 
 - Pattern Matching
@@ -65,12 +65,12 @@
 
     ```typescript
     typeclass Functor F = {
-        map: (F A, A => B) => F B
+        map: (F(A), A => B) => F(B)
     }
 
     typeclass Monad (M: Functor) = {
-        pure: A => M A
-        bind: (M A, A => M B) => M B
+        pure: A => M(A)
+        bind: (M(A), A => M(B)) => M(B)
     }
 
     type Maybe A = Just A | Nothing
@@ -83,7 +83,7 @@
         },
         Monad: {
             pure: (a) => Just a,
-            bind: (ma , f) => match ma {
+            bind: (ma, f) => match ma {
                 Just: (a) => f a,
                 Nothing: () => Nothing
             }
