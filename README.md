@@ -4,24 +4,25 @@
 
 - Fun
 - No Profit
+- Compiles to Lua (so I can write my neovim config in it)
 
 ## Syntax
 
 - Basic
 
     ```typescript
-    name = "Hi"
-    ha = 234
-    something = true
+    let name = "Hi"
+    let ha = 234
+    let something = true
 
-    names = ["Bob", "Alice", "Ted"]
+    let names = ["Bob", "Alice", "Ted"]
     ```
 
 - Functions
 
     ```typescript
-    add = (a, b) => a + b
-    add = (a: Number, b: Number) : Number => a + b
+    let add = (a, b) => a + b
+    let add = (a: Number, b: Number) : Number => a + b
     ```
 
 - Types
@@ -30,17 +31,20 @@
     type Person = {
         name: String,
         age: Number,
-        email?: String
+        email: String
     }
 
     type Point = { x: Number, y: Number}
 
+    let rect = <width, height>
+
     type Shape = 
         | Circle Number
-        | Rectangle { width: Number, height: Number}
-        | Point // shorthand for Point Point
+        | Rectangle <Number, Number>
+        | Rectangle { width: Number, height: Number }
+        | Point Point
 
-    type Node = T => {
+    type Node = (T) => {
         value: T,
         left: Tree T,
         right: Tree T
@@ -54,7 +58,7 @@
 - Pattern Matching
 
     ```typescript
-    result = match shape {
+    let result = match shape {
         Circle: (radius) => radius * radius * 3.14,
         Rectangle: ({width, height}) => width * height,
         _ => 0
@@ -75,20 +79,49 @@
 
     type Maybe A = Just A | Nothing
     with {
-      Functor: {
-            map: (ma, f) => match ma {
-                Just: (a) => Just (f a),
-                Nothing: () => Nothing
-            }
-        },
-        Monad: {
-            pure: (a) => Just a,
-            bind: (ma, f) => match ma {
-                Just: (a) => f a,
-                Nothing: () => Nothing
-            }
+        map: (ma: Maybe(A), f: A => B) => match ma {
+            Just: (a) => Just (f a),
+            Nothing: () => Nothing
+        }
+        pure: (a: A) => Just a,
+        bind: (ma: Maybe(A), f: A => Maybe(B)) => match ma {
+            Just: (a) => f a,
+            Nothing: () => Nothing
         }
     }
 
     type SomeString = String with { Functor, Monad }
+    ```
+
+- Typeclasses (alternative syntax)
+
+    ```typescript
+    typeclass Functor F = {
+        map: (F(A), A => B) => F(B)
+    }
+
+    typeclass Monad (M: Functor) = {
+        pure: A => M(A)
+        bind: (M(A), A => M(B)) => M(B)
+    }
+
+    type Maybe A = Just A | Nothing
+    with {
+      @implement(Functor) = {
+          map: (ma, f) => match ma {
+              Just: (a) => Just (f a),
+              Nothing: () => Nothing
+          }
+      }
+
+      @implement(Monad) = {
+           pure: (a) => Just a,
+           bind: (ma, f) => match ma {
+               Just: (a) => f a,
+               Nothing: () => Nothing
+           }
+      }
+    }
+
+    type SomeString = String with { @deriving Functor, @deriving Monad }
     ```
