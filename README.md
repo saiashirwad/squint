@@ -7,6 +7,7 @@
 - No Profit
 - Compiles to Lua (so I can write my neovim config in it)
 - Typeclasses and HKTs (for no reason at all)
+- Effect(s)
 
 ## Syntax
 
@@ -125,7 +126,9 @@
 - https://lptk.github.io/programming/2020/03/26/demystifying-mlsub.html
 - https://lptk.github.io/files/[v8.0]%20mlstruct.pdf
 - https://lptk.github.io/programming/2020/03/26/demystifying-mlsub.html#algebraic-subtyping-mlsub
-
+- https://ucsd-progsys.github.io/liquidhaskell/
+    - add type-level filters, automatically proves that your code 
+    satisfies the restrictions
 
 ## Notes
 - DeBrujin + dependent types
